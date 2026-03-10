@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ─── PAGE ──────────────────────────────────────────── */
+.payroll-page {
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  background-image:
+    linear-gradient(#1e1e1e 1px, transparent 1px),
+    linear-gradient(90deg, #1e1e1e 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: #f5f5f5;
+  font-family: 'Syne', sans-serif;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── TITLE ─────────────────────────────────────────── */
+.payroll-page h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 2.5rem 0;
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeUp 0.5s ease both;
+}
+
+.payroll-page h1::before {
+  content: '';
+  display: inline-block;
+  width: 14px; height: 14px;
+  background: #00e87a;
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(0,232,122,0.6);
+  flex-shrink: 0;
+}
+
+/* ─── CONTROLS ROW ──────────────────────────────────── */
+.payroll-page select {
+  width: 320px;
+  padding: 0.875rem 1rem;
+  margin-bottom: 0.875rem;
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  border-radius: 2px;
+  color: #f5f5f5;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300e87a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.75rem;
+  box-sizing: border-box;
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+
+.payroll-page select:focus {
+  outline: none;
+  border-color: #00e87a;
+  box-shadow: 0 0 0 3px rgba(0,232,122,0.12);
+  background-color: #111111;
+}
+
+.payroll-page select option { background: #1a1a1a; color: #f5f5f5; }
+
+/* ─── BUTTON ────────────────────────────────────────── */
+.payroll-page button {
+  padding: 0.875rem 1.75rem;
+  background: #00e87a;
+  border: none;
+  border-radius: 2px;
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+  animation: fadeUp 0.5s 0.15s ease both;
+}
+
+.payroll-page button:hover {
+  background: #1affa0;
+  box-shadow: 0 0 24px rgba(0,232,122,0.3);
+  transform: translateY(-1px);
+}
+
+.payroll-page button:active { transform: translateY(0); }
+
+/* ─── SALARY CARD ───────────────────────────────────── */
+.salary-card {
+  margin-top: 2.5rem;
+  width: 420px;
+  background: #111111;
+  border: 1px solid #2e2e2e;
+  border-radius: 2px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.4s ease both;
+}
+
+.salary-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00e87a, transparent);
+}
+
+/* ─── CARD HEADING ──────────────────────────────────── */
+.salary-card h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #00e87a;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+/* ─── CARD ROWS ─────────────────────────────────────── */
+.salary-card p {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  margin: 0;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.salary-card p:last-of-type {
+  border-bottom: none;
+}
+
+/* Make the value part pop */
+.salary-card p strong,
+.salary-card p span:last-child {
+  font-family: 'JetBrains Mono', monospace;
+  color: #f5f5f5;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* ─── TOTAL ─────────────────────────────────────────── */
+.salary-card h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00e87a;
+  margin: 1.25rem 0 0 0;
+  letter-spacing: -0.02em;
+  padding-top: 1rem;
+  border-top: 1px solid #2e2e2e;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .payroll-page { padding: 1.5rem 1rem; }
+  .payroll-page h1 { font-size: 2rem; }
+  .salary-card { width: 100%; }
+  .payroll-page select { width: 100%; }
+}
