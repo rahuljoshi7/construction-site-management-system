@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const labourController = require("../controllers/labour.controller");
+const materialController = require("../controllers/material.controller");
 
 const {
   verifyToken,
@@ -10,50 +10,50 @@ const {
 
 /*
 -----------------------------------
-ADD LABOUR (Admin only)
+ADD MATERIAL (Admin only)
 -----------------------------------
 */
 router.post(
   "/",
   verifyToken,
   authorizeRoles("admin"),
-  labourController.addLabour
+  materialController.addMaterial
 );
 
 /*
 -----------------------------------
-GET ALL LABOURS (Admin + Supervisor)
------------------------------------
-*/
-router.get(
-  "/",
-  verifyToken,
-  authorizeRoles("admin", "supervisor"),
-  labourController.getLabours
-);
-
-/*
------------------------------------
-UPDATE LABOUR (Admin only)
+UPDATE MATERIAL (Admin only)
 -----------------------------------
 */
 router.put(
   "/:id",
   verifyToken,
   authorizeRoles("admin"),
-  labourController.updateLabour
+  materialController.updateMaterial
 );
 
 /*
 -----------------------------------
-DELETE LABOUR (Admin only)
+DELETE MATERIAL (Admin only)
 -----------------------------------
 */
 router.delete(
   "/:id",
   verifyToken,
   authorizeRoles("admin"),
-  labourController.deleteLabour
+  materialController.deleteMaterial
+);
+
+/*
+-----------------------------------
+GET ALL MATERIALS (Admin + Supervisor)
+-----------------------------------
+*/
+router.get(
+  "/",
+  verifyToken,
+  authorizeRoles("admin", "supervisor"),
+  materialController.getMaterials
 );
 
 module.exports = router;

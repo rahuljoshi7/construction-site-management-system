@@ -1,5 +1,6 @@
 const Labour = require("../models/labour.model");
 
+// ADD LABOUR
 exports.addLabour = async (req, res) => {
   try {
     const { name, wage } = req.body;
@@ -16,6 +17,7 @@ exports.addLabour = async (req, res) => {
       message: "Labour added successfully",
       data: newLabour,
     });
+
   } catch (error) {
     res.status(500).json({
       message: "Server error",
@@ -24,28 +26,41 @@ exports.addLabour = async (req, res) => {
   }
 };
 
+
+// GET ALL LABOURS
 exports.getLabours = async (req, res) => {
   try {
-    const labours = await Labour.find();
+
+    const labours = await Labour.findAll();
 
     res.json({
       message: "Labours fetched",
       data: labours,
     });
+
   } catch (error) {
     res.status(500).json({
       message: "Server error",
+      error: error.message,
     });
   }
 };
 
+
+// DELETE LABOUR
 exports.deleteLabour = async (req, res) => {
   try {
 
-    const labour = await Labour.findByIdAndDelete(req.params.id);
+    const id = req.params.id;
 
-    if (!labour) {
-      return res.status(404).json({ message: "Worker not found" });
+    const deleted = await Labour.destroy({
+      where: { id }
+    });
+
+    if (!deleted) {
+      return res.status(404).json({
+        message: "Worker not found"
+      });
     }
 
     res.json({
@@ -53,36 +68,34 @@ exports.deleteLabour = async (req, res) => {
     });
 
   } catch (error) {
-
     res.status(500).json({
-      message: "Server error"
+      message: "Server error",
+      error: error.message
     });
-
   }
 };
 
+
 // UPDATE LABOUR
 exports.updateLabour = async (req, res) => {
-
   try {
 
-    const { name, wage, role } = req.body;
+    const { name, wage } = req.body;
+    const id = req.params.id;
 
-    const updatedLabour = await Labour.findByIdAndUpdate(
-      req.params.id,
-      {
-        name,
-        wage,
-        role
-      },
-      { new: true }
+    const [updated] = await Labour.update(
+      { name, wage },
+      { where: { id } }
     );
 
-    if (!updatedLabour) {
+    if (!updated) {
       return res.status(404).json({
         message: "Worker not found"
       });
     }
+
+    // fetch updated record
+    const updatedLabour = await Labour.findByPk(id);
 
     res.status(200).json({
       message: "Worker updated successfully",
@@ -90,12 +103,9 @@ exports.updateLabour = async (req, res) => {
     });
 
   } catch (error) {
-
     res.status(500).json({
       message: "Server error",
       error: error.message
     });
-
   }
-
 };

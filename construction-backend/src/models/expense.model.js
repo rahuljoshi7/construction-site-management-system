@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
-const Labour = sequelize.define(
-  "Labour",
+const Expense = sequelize.define(
+  "Expense",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,20 +10,30 @@ const Labour = sequelize.define(
       primaryKey: true,
     },
 
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    wage: {
+    amount: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+
+    category: {
+      type: DataTypes.ENUM("labour", "material", "misc"),
+      defaultValue: "misc",
+    },
+
+    date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
-    tableName: "labours",
+    tableName: "expenses",
     timestamps: true,
   }
 );
 
-module.exports = Labour;
+module.exports = Expense;

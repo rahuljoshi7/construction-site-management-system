@@ -1,12 +1,22 @@
-require("dotenv").config();
+require("dotenv").config(); // 🔥 load env FIRST
+
 const app = require("./src/app");
-const connectDB = require("./src/config/db");
+const sequelize = require("./src/config/db");
 
 const PORT = process.env.PORT || 5000;
 
-// 🔥 Connect Database
-connectDB();
+/* =========================================
+   CONNECT MYSQL & START SERVER
+========================================= */
+sequelize.sync()
+  .then(() => {
+    console.log("MySQL Connected Successfully");
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  })
+  .catch((err) => {
+    console.error("Database connection failed:", err);
+  });

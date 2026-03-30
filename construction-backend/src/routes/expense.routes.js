@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const labourController = require("../controllers/labour.controller");
+const expenseController = require("../controllers/expense.controller");
 
 const {
   verifyToken,
@@ -10,50 +10,38 @@ const {
 
 /*
 -----------------------------------
-ADD LABOUR (Admin only)
+ADD EXPENSE (Admin only)
 -----------------------------------
 */
 router.post(
   "/",
   verifyToken,
   authorizeRoles("admin"),
-  labourController.addLabour
+  expenseController.addExpense
 );
 
 /*
 -----------------------------------
-GET ALL LABOURS (Admin + Supervisor)
------------------------------------
-*/
-router.get(
-  "/",
-  verifyToken,
-  authorizeRoles("admin", "supervisor"),
-  labourController.getLabours
-);
-
-/*
------------------------------------
-UPDATE LABOUR (Admin only)
------------------------------------
-*/
-router.put(
-  "/:id",
-  verifyToken,
-  authorizeRoles("admin"),
-  labourController.updateLabour
-);
-
-/*
------------------------------------
-DELETE LABOUR (Admin only)
+DELETE EXPENSE (Admin only)
 -----------------------------------
 */
 router.delete(
   "/:id",
   verifyToken,
   authorizeRoles("admin"),
-  labourController.deleteLabour
+  expenseController.deleteExpense
+);
+
+/*
+-----------------------------------
+GET ALL EXPENSES (Admin + Supervisor)
+-----------------------------------
+*/
+router.get(
+  "/",
+  verifyToken,
+  authorizeRoles("admin", "supervisor"),
+  expenseController.getExpenses
 );
 
 module.exports = router;

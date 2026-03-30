@@ -14,29 +14,27 @@ function AttendancePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recentEntries, setRecentEntries] = useState([]);
 
-  // Fetch labour list
+  /* =========================================
+     FETCH LABOURS
+  ========================================= */
   useEffect(() => {
 
     const fetchLabours = async () => {
-
       try {
-
         const res = await API.get("/labour");
-
         setLabours(res.data.data || []);
-
       } catch (error) {
-
         console.error("Failed to fetch labours:", error);
-
       }
-
     };
 
     fetchLabours();
 
   }, []);
 
+  /* =========================================
+     MARK ATTENDANCE
+  ========================================= */
   const markAttendance = async () => {
 
     if (!labourId) {
@@ -49,13 +47,13 @@ function AttendancePage() {
     try {
 
       await API.post("/attendance", {
-        labour: labourId,
+        labourId: labourId, // ✅ FIXED (important)
         status: status,
         shift: shift,
         overtimeHours: Number(overtimeHours)
       });
 
-      const selectedLabour = labours.find(l => l._id === labourId);
+      const selectedLabour = labours.find(l => l.id == labourId); // ✅ FIXED
 
       const newEntry = {
         id: Date.now(),
@@ -90,9 +88,7 @@ function AttendancePage() {
       }
 
     } finally {
-
       setIsSubmitting(false);
-
     }
 
   };
@@ -111,16 +107,13 @@ function AttendancePage() {
 
       <div className="attendance-container">
 
-        {/* Attendance Form */}
-
+        {/* FORM */}
         <div className="attendance-form-card">
 
           <h2>Quick Entry</h2>
 
-          {/* Labour Selection */}
-
+          {/* Labour */}
           <div className="form-group">
-
             <label>Labour</label>
 
             <select
@@ -129,31 +122,23 @@ function AttendancePage() {
               onChange={(e) => setLabourId(e.target.value)}
               disabled={isSubmitting}
             >
-
               <option value="">Select Labour</option>
 
               {labours.map((labour) => (
-
-                <option key={labour._id} value={labour._id}>
+                <option key={labour.id} value={labour.id}> {/* ✅ FIXED */}
                   {labour.name}
                 </option>
-
               ))}
 
             </select>
-
           </div>
 
           {/* Status */}
-
           <div className="form-group">
-
             <label>Status</label>
 
             <div className="status-options">
-
               {statusOptions.map((option) => (
-
                 <label key={option.value} className="status-option">
 
                   <input
@@ -167,17 +152,12 @@ function AttendancePage() {
                   {option.label}
 
                 </label>
-
               ))}
-
             </div>
-
           </div>
 
-          {/* Shift Selection */}
-
+          {/* Shift */}
           <div className="form-group">
-
             <label>Shift</label>
 
             <select
@@ -185,19 +165,14 @@ function AttendancePage() {
               value={shift}
               onChange={(e) => setShift(e.target.value)}
             >
-
               <option value="morning">Morning (8AM - 5PM)</option>
               <option value="evening">Evening (5PM - 12AM)</option>
               <option value="night">Night (12AM - 8AM)</option>
-
             </select>
-
           </div>
 
           {/* Overtime */}
-
           <div className="form-group">
-
             <label>Overtime Hours</label>
 
             <input
@@ -205,28 +180,22 @@ function AttendancePage() {
               className="form-input"
               value={overtimeHours}
               min="0"
-              placeholder="Enter overtime hours"
               onChange={(e) => setOvertimeHours(e.target.value)}
             />
-
           </div>
 
           {/* Submit */}
-
           <button
             className="submit-btn"
             onClick={markAttendance}
             disabled={isSubmitting}
           >
-
             {isSubmitting ? "Submitting..." : "Mark Attendance"}
-
           </button>
 
         </div>
 
-        {/* Recent Entries */}
-
+        {/* RECENT ENTRIES */}
         <div className="recent-entries-card">
 
           <h3>Recent Entries</h3>
@@ -242,19 +211,15 @@ function AttendancePage() {
               <div key={entry.id} className="entry-item">
 
                 <div>
-
                   <strong>{entry.name}</strong>
-
                   <div>Shift: {entry.shift}</div>
 
                   {entry.overtimeHours > 0 && (
                     <div>Overtime: {entry.overtimeHours} hrs</div>
                   )}
-
                 </div>
 
                 <div>
-
                   <span className={`entry-status ${entry.status}`}>
                     {entry.status}
                   </span>
@@ -262,7 +227,6 @@ function AttendancePage() {
                   <div className="entry-time">
                     {entry.time}
                   </div>
-
                 </div>
 
               </div>

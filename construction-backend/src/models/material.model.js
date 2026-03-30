@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
-const User = sequelize.define(
-  "User",
+const Material = sequelize.define(
+  "Material",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -15,29 +15,25 @@ const User = sequelize.define(
       allowNull: false,
     },
 
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-
-    password: {
-      type: DataTypes.STRING,
+    quantity: {
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
 
-    role: {
-      type: DataTypes.ENUM("admin", "supervisor"),
-      defaultValue: "supervisor",
+    unit: {
+      type: DataTypes.STRING,
+      defaultValue: "kg",
+    },
+
+    pricePerUnit: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
   },
   {
-    tableName: "users",
+    tableName: "materials",
     timestamps: true,
   }
 );
 
-module.exports = User;
+module.exports = Material;

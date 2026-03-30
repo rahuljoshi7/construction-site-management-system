@@ -1,35 +1,55 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
+const Labour = require("./labour.model");
 
-const attendanceSchema = new mongoose.Schema({
+const Attendance = sequelize.define(
+  "Attendance",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
 
-  labour: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Labour",
-    required: true
+    labourId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Labour,
+        key: "id",
+      },
+    },
+
+    date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+
+    shift: {
+      type: DataTypes.ENUM("morning", "evening", "night"),
+      allowNull: false,
+    },
+
+    status: {
+      type: DataTypes.ENUM("present", "absent", "half-day"),
+      defaultValue: "present",
+    },
+
+    overtimeHours: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
   },
-
-  date: {
-    type: Date,
-    default: Date.now
-  },
-
-  shift: {
-    type: String,
-    enum: ["morning", "evening", "night"],
-    required: true
-  },
-
-  status: {
-    type: String,
-    enum: ["present", "absent", "half-day"],
-    default: "present"
-  },
-
-  overtimeHours: {
-    type: Number,
-    default: 0
+  {
+    tableName: "attendance",
+    timestamps: true,
   }
+);
 
-}, { timestamps: true });
+// 🔥 RELATIONSHIP (VERY IMPORTANT)
+Attendance.belongsTo(Labour, {
+  foreignKey: "labourId",
+  onDelete: "CASCADE",
+});
 
-module.exports = mongoose.model("Attendance", attendanceSchema);
+module.exports = Attendance;

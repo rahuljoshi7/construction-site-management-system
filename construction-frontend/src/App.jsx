@@ -6,12 +6,11 @@ import Dashboard from "./pages/Dashboard";
 import LabourPage from "./pages/LabourPage";
 import AttendancePage from "./pages/AttendancePage";
 import PayrollPage from "./pages/PayrollPage";
-
+import MaterialPage from "./pages/MaterialPage";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import ExpensePage from "./pages/ExpensePage";
 function Layout() {
-
   const location = useLocation();
 
   // Hide navbar on login/signup
@@ -25,47 +24,68 @@ function Layout() {
 
       <Routes>
 
-        {/* Auth Routes */}
+        {/* ================= AUTH ROUTES ================= */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        {/* Protected Routes */}
+        {/* ================= PROTECTED ROUTES ================= */}
+
+        {/* Dashboard (All logged-in users) */}
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin", "supervisor"]}>
               <Dashboard />
             </ProtectedRoute>
           }
         />
 
+        {/* Labour (Admin only) */}
         <Route
           path="/labour"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <LabourPage />
             </ProtectedRoute>
           }
         />
 
+        {/* Attendance (Admin + Supervisor) */}
         <Route
           path="/attendance"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin", "supervisor"]}>
               <AttendancePage />
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/material"
+          element={
+            <ProtectedRoute allowedRoles={["admin", "supervisor"]}>
+              <MaterialPage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Payroll (Admin + Supervisor) */}
         <Route
           path="/payroll"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin", "supervisor"]}>
               <PayrollPage />
             </ProtectedRoute>
           }
         />
 
+
+        <Route
+          path="/expense"
+          element={
+            <ProtectedRoute allowedRoles={["admin", "supervisor"]}>
+              <ExpensePage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
