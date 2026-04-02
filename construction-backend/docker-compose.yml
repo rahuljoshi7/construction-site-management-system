@@ -1,7 +1,10 @@
+version: '3.8'
+
 services:
   mysql:
     image: mysql:8
     container_name: mysql-container
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: construction_db
@@ -9,10 +12,17 @@ services:
       MYSQL_PASSWORD: app123
     ports:
       - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
 
   backend:
     build: .
     container_name: backend-container
+    restart: always
     ports:
       - "5000:5000"
     environment:
@@ -22,11 +32,13 @@ services:
       DB_NAME: construction_db
       DB_PORT: 3306
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   frontend:
     build: ../construction-frontend
     container_name: frontend-container
+    restart: always
     ports:
       - "5173:5173"
     depends_on:
@@ -35,6 +47,7 @@ services:
   prometheus:
     image: prom/prometheus
     container_name: prometheus-container
+    restart: always
     ports:
       - "9090:9090"
     volumes:
@@ -43,24 +56,39 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana-container
+    restart: always
     ports:
       - "3001:3000"
     depends_on:
       - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
 
   jenkins:
     build: ./jenkins
     container_name: jenkins-container
+    restart: always
     ports:
-    - "8082:8080"
-    - "50000:50000"
+      - "8082:8080"
+      - "50000:50000"
     volumes:
-    - jenkins_home:/var/jenkins_home
-    - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     user: root
-    dns:
-    - 8.8.8.8
-    - 8.8.4.4
-# ✅ OUTSIDE services (VERY IMPORTANT)
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+# ✅ volumes
 volumes:
   jenkins_home:
+  mysql_data:
+  grafana_data:
+
+# ✅ network (important for communication)
+networks:
+  app-network:
+    driver: bridge
