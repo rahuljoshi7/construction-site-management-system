@@ -18,6 +18,7 @@ services:
       retries: 5
 
   backend:
+    build: ./construction-backend
     image: rahul-construction-backend:latest
     container_name: backend-container
     restart: always
@@ -34,6 +35,7 @@ services:
         condition: service_healthy
 
   frontend:
+    build: ./construction-frontend
     image: rahul-construction-frontend:latest
     container_name: frontend-container
     restart: always
@@ -47,7 +49,7 @@ services:
     container_name: prometheus-container
     restart: always
     ports:
-      - "9090:9090"
+      - "9091:9090"
     volumes:
       - ./construction-backend/prometheus.yml:/etc/prometheus/prometheus.yml
 
