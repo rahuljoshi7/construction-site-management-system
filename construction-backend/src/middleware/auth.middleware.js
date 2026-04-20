@@ -8,7 +8,7 @@ exports.verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    // ❌ No token or wrong format
+    //  No token or wrong format
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
@@ -18,7 +18,7 @@ exports.verifyToken = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    // 🔐 Verify token using secret from .env
+    // Verify token using secret from .env
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Attach decoded user (id + role)
@@ -40,7 +40,7 @@ exports.verifyToken = (req, res, next) => {
 exports.authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     try {
-      // ❌ If user not attached
+      // If user not attached
       if (!req.user || !req.user.role) {
         return res.status(401).json({
           success: false,
@@ -48,7 +48,7 @@ exports.authorizeRoles = (...allowedRoles) => {
         });
       }
 
-      // ❌ Role not allowed
+      //  Role not allowed
       if (!allowedRoles.includes(req.user.role)) {
         return res.status(403).json({
           success: false,

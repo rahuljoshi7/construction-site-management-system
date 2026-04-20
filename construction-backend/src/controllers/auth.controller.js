@@ -5,12 +5,11 @@ const jwt = require("jsonwebtoken");
 /* ==============================
    SIGNUP
 ============================== */
-
 exports.signup = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
-    // 🔍 Validation
+    // 1. Validation
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
@@ -18,9 +17,9 @@ exports.signup = async (req, res) => {
       });
     }
 
-    // 🔥 Sequelize uses "where"
+    // 2. Check existing user
     const existingUser = await User.findOne({
-      where: { email }
+      where: { email },
     });
 
     if (existingUser) {
@@ -30,22 +29,23 @@ exports.signup = async (req, res) => {
       });
     }
 
-    // 🔐 Hash password
+    // 3. Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ✅ Create user
+    // 4. Create user
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
-     role: role || "supervisor"
+      role: role || "supervisor",
     });
 
-    res.status(201).json({
+    // 5. Response
+    return res.status(201).json({
       success: true,
-      message: "User created successfully",
+      message: "Signup successful",
       user: {
-        id: user.id, // 🔥 changed from _id
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -53,14 +53,11 @@ exports.signup = async (req, res) => {
     });
 
   } catch (error) {
-
     console.error("Signup Error:", error);
-
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Signup failed",
     });
-
   }
 };
 
@@ -68,12 +65,11 @@ exports.signup = async (req, res) => {
 /* ==============================
    LOGIN
 ============================== */
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 🔍 Validation
+    // 1. Validation
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -81,39 +77,42 @@ exports.login = async (req, res) => {
       });
     }
 
-    // 🔥 Sequelize query
+    // 2. Find user
     const user = await User.findOne({
-      where: { email }
+      where: { email },
     });
 
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: "Invalid email",
+        message: "Invalid email or password",
       });
     }
 
-    // 🔐 Compare password
+    // 3. Compare password (IMPORTANT)
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(400).json({
         success: false,
-        message: "Invalid password",
+        message: "Invalid email or password",
       });
     }
 
-    // 🔐 JWT (IMPORTANT CHANGE: id instead of _id)
+    // 4. Generate JWT token
     const token = jwt.sign(
       {
         id: user.id,
         role: user.role,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      {
+        expiresIn: "1d",
+      }
     );
 
-    res.status(200).json({
+    // 5. Send response
+    return res.status(200).json({
       success: true,
       message: "Login successful",
       token,
@@ -126,13 +125,10 @@ exports.login = async (req, res) => {
     });
 
   } catch (error) {
-
     console.error("Login Error:", error);
-
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Login failed",
     });
-
   }
 };

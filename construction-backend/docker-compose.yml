@@ -65,4 +65,8 @@ services:
 # ✅ volumes
 volumes:
   mysql_data:
+<<<<<<< HEAD
   grafana_data:
+=======
+  grafana_data:
+>>>>>>> 332d4b0 (Added Jenkinsfile for CI/CD)

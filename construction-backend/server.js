@@ -1,4 +1,4 @@
-require("dotenv").config(); // 🔥 load env FIRST
+require("dotenv").config(); // load env FIRST
 
 const app = require("./src/app");
 const sequelize = require("./src/config/db");

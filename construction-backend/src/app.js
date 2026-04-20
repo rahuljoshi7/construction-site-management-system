@@ -7,7 +7,7 @@ const labourRoutes = require("./routes/labour.routes");
 const attendanceRoutes = require("./routes/attendance.routes");
 const materialRoutes = require("./routes/material.routes");
 const expenseRoutes = require("./routes/expense.routes");
-
+const viewRoutes = require("./routes/view.routes");
 
 
 const app = express();
@@ -29,7 +29,7 @@ app.use("/api/labour", labourRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/material", materialRoutes);
 app.use("/api/expense", expenseRoutes);
-
+app.use("/", viewRoutes);
 /* =========================================
    ROOT ROUTE
 ========================================= */

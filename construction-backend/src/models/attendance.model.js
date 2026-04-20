@@ -46,7 +46,7 @@ const Attendance = sequelize.define(
   }
 );
 
-// 🔥 RELATIONSHIP (VERY IMPORTANT)
+// RELATIONSHIP 
 Attendance.belongsTo(Labour, {
   foreignKey: "labourId",
   onDelete: "CASCADE",

@@ -11,6 +11,9 @@ function ExpensePage() {
   const [total, setTotal] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // ===============================
+  // FETCH EXPENSES
+  // ===============================
   const fetchExpenses = async () => {
     try {
       const res = await API.get("/expense");
@@ -25,6 +28,9 @@ function ExpensePage() {
     fetchExpenses();
   }, []);
 
+  // ===============================
+  // ADD EXPENSE
+  // ===============================
   const addExpense = async () => {
 
     if (!title.trim() || !amount) {
@@ -55,7 +61,12 @@ function ExpensePage() {
 
   };
 
+  // ===============================
+  // DELETE EXPENSE
+  // ===============================
   const deleteExpense = async (id) => {
+
+    console.log("Deleting ID:", id); // DEBUG
 
     const confirmDelete = window.confirm("Delete this expense?");
     if (!confirmDelete) return;
@@ -71,9 +82,9 @@ function ExpensePage() {
   };
 
   const categories = [
-    { value: "labour",   label: "Labour",   icon: "👷" },
+    { value: "labour", label: "Labour", icon: "👷" },
     { value: "material", label: "Material", icon: "🧱" },
-    { value: "misc",     label: "Misc",     icon: "📦" },
+    { value: "misc", label: "Misc", icon: "📦" },
   ];
 
   return (
@@ -84,7 +95,7 @@ function ExpensePage() {
 
       <div className="expense-layout">
 
-        {/* ── FORM ── */}
+        {/* FORM */}
         <div className="expense-form-card">
 
           <h2>Add Expense</h2>
@@ -126,16 +137,18 @@ function ExpensePage() {
 
         </div>
 
-        {/* ── RIGHT COLUMN ── */}
+        {/* RIGHT SIDE */}
         <div className="expense-right">
 
-          {/* Total */}
+          {/* TOTAL */}
           <div className="expense-total">
             <span className="expense-total-label">Total Expenditure</span>
-            <span className="expense-total-value">₹{total.toLocaleString()}</span>
+            <span className="expense-total-value">
+              ₹{total.toLocaleString()}
+            </span>
           </div>
 
-          {/* List */}
+          {/* LIST */}
           <div className="expense-list-section">
 
             <h2>All Expenses</h2>
@@ -152,7 +165,7 @@ function ExpensePage() {
 
                 {expenses.map((e) => (
 
-                  <div key={e._id} className="expense-item">
+                  <div key={e.id} className="expense-item">
 
                     <div className="expense-item-info">
 
@@ -175,7 +188,7 @@ function ExpensePage() {
 
                       <button
                         className="expense-delete-btn"
-                        onClick={() => deleteExpense(e._id)}
+                        onClick={() => deleteExpense(e.id)}  // ✅ FIXED
                       >
                         Delete
                       </button>
