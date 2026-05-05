@@ -13,7 +13,11 @@ exports.markAttendance = async (req, res) => {
 
     if (!labourId || !shift) {
       return res.status(400).json({
+<<<<<<< HEAD
         message: "Labour ID and shift are required"
+=======
+        message: "Labour ID and shift are required.."
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
       });
     }
 
@@ -196,4 +200,8 @@ exports.getPayroll = async (req, res) => {
     });
 
   }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21

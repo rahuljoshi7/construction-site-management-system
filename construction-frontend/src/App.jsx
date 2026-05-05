@@ -7,6 +7,7 @@ import LabourPage from "./pages/LabourPage";
 import AttendancePage from "./pages/AttendancePage";
 import PayrollPage from "./pages/PayrollPage";
 import MaterialPage from "./pages/MaterialPage";
+<<<<<<< HEAD
 import ExpensePage from "./pages/ExpensePage";
 
 import Navbar from "./components/Navbar";
@@ -15,6 +16,15 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function Layout() {
   const location = useLocation();
 
+=======
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ExpensePage from "./pages/ExpensePage";
+function Layout() {
+  const location = useLocation();
+
+  // Hide navbar on login/signup
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
   const hideNavbar =
     location.pathname === "/login" ||
     location.pathname === "/signup";
@@ -25,11 +35,21 @@ function Layout() {
 
       <Routes>
 
+<<<<<<< HEAD
         {/* AUTH */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
         {/* DASHBOARD */}
+=======
+        {/* ================= AUTH ROUTES ================= */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+
+        {/* ================= PROTECTED ROUTES ================= */}
+
+        {/* Dashboard (All logged-in users) */}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
         <Route
           path="/"
           element={
@@ -39,7 +59,11 @@ function Layout() {
           }
         />
 
+<<<<<<< HEAD
         {/* LABOUR */}
+=======
+        {/* Labour (Admin only) */}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
         <Route
           path="/labour"
           element={
@@ -49,7 +73,11 @@ function Layout() {
           }
         />
 
+<<<<<<< HEAD
         {/* ATTENDANCE */}
+=======
+        {/* Attendance (Admin + Supervisor) */}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
         <Route
           path="/attendance"
           element={
@@ -58,8 +86,11 @@ function Layout() {
             </ProtectedRoute>
           }
         />
+<<<<<<< HEAD
 
         {/* MATERIAL */}
+=======
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
         <Route
           path="/material"
           element={
@@ -68,8 +99,12 @@ function Layout() {
             </ProtectedRoute>
           }
         />
+<<<<<<< HEAD
 
         {/* PAYROLL */}
+=======
+        {/* Payroll (Admin + Supervisor) */}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
         <Route
           path="/payroll"
           element={
@@ -79,7 +114,11 @@ function Layout() {
           }
         />
 
+<<<<<<< HEAD
         {/* EXPENSE */}
+=======
+
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
         <Route
           path="/expense"
           element={
@@ -88,7 +127,10 @@ function Layout() {
             </ProtectedRoute>
           }
         />
+<<<<<<< HEAD
 
+=======
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
       </Routes>
     </>
   );

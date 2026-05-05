@@ -1,5 +1,9 @@
 require("dotenv").config(); // load env FIRST
+<<<<<<< HEAD
 require("./src/models");
+=======
+
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
 const app = require("./src/app");
 const sequelize = require("./src/config/db");
 const client = require('prom-client');

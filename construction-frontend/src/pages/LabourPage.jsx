@@ -111,11 +111,14 @@ function LabourPage() {
       return;
     }
 
+<<<<<<< HEAD
     if (!id) {
       console.error("Delete failed: ID is undefined");
       return;
     }
 
+=======
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
     const confirmDelete = window.confirm("Delete this worker?");
     if (!confirmDelete) return;
 
@@ -136,7 +139,11 @@ function LabourPage() {
     setName(labour.name || "");
     setWage(labour.wage || "");
     setRole(labour.role || "general");
+<<<<<<< HEAD
     setEditId(labour.id); // ✅ FIXED
+=======
+    setEditId(labour._id);
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
 
     window.scrollTo({
       top: 0,
@@ -146,12 +153,15 @@ function LabourPage() {
 
   // VIEW ATTENDANCE
   const viewAttendance = async (labourId, name) => {
+<<<<<<< HEAD
 
     if (!labourId) {
       console.error("Attendance fetch failed: ID undefined");
       return;
     }
 
+=======
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
     try {
       const res = await API.get(`/attendance/worker/${labourId}`);
       setAttendanceData(res.data.data || []);
@@ -231,6 +241,10 @@ function LabourPage() {
       )}
 
       {/* WORKER LIST */}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
       <div className="labour-list">
 
         <h2>Registered Workers</h2>
@@ -243,7 +257,11 @@ function LabourPage() {
 
           {labourList.map((labour) => (
 
+<<<<<<< HEAD
             <div key={labour.id} className="labour-card">
+=======
+            <div key={labour._id} className="labour-card">
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
 
               <div className="labour-header">
 
@@ -264,7 +282,11 @@ function LabourPage() {
 
                       <button
                         className="delete-btn"
+<<<<<<< HEAD
                         onClick={() => deleteLabour(labour.id)}
+=======
+                        onClick={() => deleteLabour(labour._id)}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
                       >
                         Delete
                       </button>
@@ -273,7 +295,11 @@ function LabourPage() {
 
                   <button
                     className="view-btn"
+<<<<<<< HEAD
                     onClick={() => viewAttendance(labour.id, labour.name)}
+=======
+                    onClick={() => viewAttendance(labour._id, labour.name)}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
                   >
                     Attendance
                   </button>
@@ -300,6 +326,10 @@ function LabourPage() {
       </div>
 
       {/* ATTENDANCE MODAL */}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
       {showAttendance && (
 
         <div className="attendance-modal">
@@ -332,7 +362,11 @@ function LabourPage() {
                 {attendanceData.map((record) => (
 
                   <div
+<<<<<<< HEAD
                     key={record.id} // ✅ FIXED
+=======
+                    key={record._id}
+>>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
                     className="attendance-card"
                   >
 
