@@ -13,7 +13,7 @@ exports.markAttendance = async (req, res) => {
 
     if (!labourId || !shift) {
       return res.status(400).json({
-        message: "Labour ID and shift are required"
+        message: "Labour ID and shift are required.."
       });
     }
 
