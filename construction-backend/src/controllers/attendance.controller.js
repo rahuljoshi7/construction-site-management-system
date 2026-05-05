@@ -38,7 +38,7 @@ exports.markAttendance = async (req, res) => {
 
     if (existingAttendance) {
       return res.status(400).json({
-        message: "Attendance already marked for this shift today.."
+        message: "Attendance already marked for this shift today"
       });
     }
 
