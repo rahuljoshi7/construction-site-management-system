@@ -16,7 +16,7 @@ exports.markAttendance = async (req, res) => {
 <<<<<<< HEAD
         message: "Labour ID and shift are required"
 =======
-        message: "Labour ID and shift are required.."
+        message: "Labour ID and shift are required"
 >>>>>>> 78e9583c7956c4b4b9af980d8c6e7133c70fcc21
       });
     }
