@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ─── PAGE ──────────────────────────────────────────── */
+.expense-page {
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  background-image:
+    linear-gradient(#1e1e1e 1px, transparent 1px),
+    linear-gradient(90deg, #1e1e1e 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: #f5f5f5;
+  font-family: 'Syne', sans-serif;
+  padding: 2.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── TITLE ─────────────────────────────────────────── */
+.expense-page h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 2.5rem 0;
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeUp 0.5s ease both;
+}
+
+.expense-page h1::before {
+  content: '';
+  display: inline-block;
+  width: 14px; height: 14px;
+  background: #ff4757;
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(255,71,87,0.6);
+  flex-shrink: 0;
+}
+
+/* ─── LAYOUT ────────────────────────────────────────── */
+.expense-layout {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ─── FORM CARD ─────────────────────────────────────── */
+.expense-form-card {
+  background: #111111;
+  border: 1px solid #2e2e2e;
+  border-radius: 2px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+
+.expense-form-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff4757, transparent);
+}
+
+.expense-form-card h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ff4757;
+  margin: 0 0 1.75rem 0;
+}
+
+/* ─── INPUTS ────────────────────────────────────────── */
+.expense-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: #1a1a1a;
+  border: 1px solid #2e2e2e;
+  border-radius: 2px;
+  color: #f5f5f5;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  margin-bottom: 0.875rem;
+  display: block;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.expense-input:focus {
+  outline: none;
+  border-color: #ff4757;
+  box-shadow: 0 0 0 3px rgba(255,71,87,0.1);
+  background: #111111;
+}
+
+.expense-input::placeholder { color: #444; }
+.expense-input option { background: #1a1a1a; color: #f5f5f5; }
+
+/* ─── ADD BUTTON ────────────────────────────────────── */
+.expense-add-btn {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: #ff4757;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 0.25rem;
+}
+
+.expense-add-btn:hover {
+  background: #ff6b78;
+  box-shadow: 0 0 24px rgba(255,71,87,0.3);
+  transform: translateY(-1px);
+}
+
+.expense-add-btn:active { transform: translateY(0); }
+
+/* ─── RIGHT COLUMN ──────────────────────────────────── */
+.expense-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeUp 0.5s 0.15s ease both;
+}
+
+/* ─── TOTAL BANNER ──────────────────────────────────── */
+.expense-total {
+  background: #111111;
+  border: 1px solid #2e2e2e;
+  border-radius: 2px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.expense-total::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff4757, transparent);
+}
+
+.expense-total-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.expense-total-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ff4757;
+  letter-spacing: -0.03em;
+}
+
+/* ─── LIST SECTION ──────────────────────────────────── */
+.expense-list-section h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #555;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.expense-list-section h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #2e2e2e;
+}
+
+/* ─── EXPENSE ITEMS ─────────────────────────────────── */
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: #242424;
+  border: 1px solid #242424;
+}
+
+.expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111111;
+  padding: 1rem 1.25rem;
+  transition: background 0.15s;
+  border-left: 3px solid transparent;
+  animation: fadeUp 0.4s ease both;
+}
+
+.expense-item:hover {
+  background: #1a1a1a;
+  border-left-color: #ff4757;
+}
+
+.expense-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.expense-item-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f5f5f5;
+  letter-spacing: -0.01em;
+}
+
+.expense-item-category {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.expense-item-category.labour {
+  color: #3d8bff;
+  background: rgba(61,139,255,0.1);
+  border: 1px solid rgba(61,139,255,0.25);
+}
+
+.expense-item-category.material {
+  color: #ffb347;
+  background: rgba(255,179,71,0.1);
+  border: 1px solid rgba(255,179,71,0.25);
+}
+
+.expense-item-category.misc {
+  color: #a78bfa;
+  background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.25);
+}
+
+.expense-item-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.expense-item-amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ff4757;
+  letter-spacing: -0.02em;
+}
+
+.expense-delete-btn {
+  padding: 4px 10px;
+  background: rgba(255,71,87,0.08);
+  border: 1px solid rgba(255,71,87,0.25);
+  border-radius: 2px;
+  color: #ff4757;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.expense-delete-btn:hover {
+  background: rgba(255,71,87,0.18);
+  border-color: #ff4757;
+}
+
+/* Empty state */
+.expense-empty {
+  text-align: center;
+  padding: 3rem;
+  background: #111111;
+  border: 1px dashed #2e2e2e;
+  color: #444;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .expense-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .expense-page { padding: 1.5rem 1rem; }
+  .expense-page h1 { font-size: 2rem; }
+  .expense-total-value { font-size: 1.75rem; }
+}

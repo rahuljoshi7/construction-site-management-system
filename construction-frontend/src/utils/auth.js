@@ -1,0 +1,15 @@
+export const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+export const getUser = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};
+
+export const getRole = () => {
+  return getUser()?.role;
+};
+
+export const isAuthenticated = () => {
+  return !!getToken();
+};
